@@ -11,10 +11,6 @@ DX friendy InstancedMesh for three.js
 npm i coolthree
 ```
 
-```javascript
-import { CoolThree } from "coolthree";
-```
-
 ## Usage
 ```javascript
     import { CoolMesh, CoolThree } from 'coolthree';
@@ -46,14 +42,14 @@ import { CoolThree } from "coolthree";
 ## Docs
 
 ### CoolThree
-#### `new CoolThree()`
-#### `add(scene: Object3D, name: string, geo: BufferGeometry, mat: Material, amount = 1000, isDynamic = true): void`
-#### `remove(name: string): void`
-#### `get(name: string): CoolInstancedMesh`
-#### `update(scene: Object3D): void`
+`new CoolThree()`
+`add(scene: Object3D, name: string, geo: BufferGeometry, mat: Material, amount = 1000, isDynamic = true): void`
+`remove(name: string): void`
+`get(name: string): CoolInstancedMesh`
+`update(scene: Object3D): void`
 
 ### CoolMesh
-#### `new CoolMesh(cim: CoolInstancedMesh, color: Color)`
+`new CoolMesh(cim: CoolInstancedMesh, color: Color)`
 
 ## License
 
