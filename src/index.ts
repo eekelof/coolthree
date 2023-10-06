@@ -1,17 +1,26 @@
-import { BufferGeometry, Color, InstancedMesh, Material, Object3D, Scene } from "three";
+import { BufferGeometry, Color, InstancedMesh, Material, Object3D } from "three";
 
 export class CoolThree {
     cims = new Map<string, CoolInstancedMesh>();
 
-    add(scene: Scene, name: string, geo: BufferGeometry, mat: Material, amount = 1000, isDynamic = true) {
+    add(scene: Object3D, name: string, geo: BufferGeometry, mat: Material, amount = 1000, isDynamic = true) {
         const cim = new CoolInstancedMesh(geo, mat, amount, isDynamic);
         this.cims.set(name, cim);
         scene.add(cim);
     }
+    remove(name: string) {
+        const cim = this.cims.get(name);
+        if (!cim)
+            return;
+        cim.parent?.remove(cim);
+        this.cims.delete(name);
+        cim.geometry?.dispose();
+        (cim.material as THREE.Material)?.dispose();
+    }
     get(name: string) {
         return this.cims.get(name);
     }
-    update(scene: Scene) {
+    update(scene: Object3D) {
         for (const cim of this.cims.values()) {
             if (!cim.isDynamic && cim.count > 0)
                 cim.hasBeenPlaced = true;
