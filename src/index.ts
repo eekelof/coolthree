@@ -1,7 +1,8 @@
 import { BufferGeometry, Color, InstancedMesh, Material, Object3D, Scene } from "three";
 
-export default class CoolThree {
+export class CoolThree {
     cims = new Map<string, CoolInstancedMesh>();
+
     add(scene: Scene, name: string, geo: BufferGeometry, mat: Material, amount = 1000, isDynamic = true) {
         const cim = new CoolInstancedMesh(geo, mat, amount, isDynamic);
         this.cims.set(name, cim);
@@ -14,7 +15,6 @@ export default class CoolThree {
         for (const cim of this.cims.values()) {
             if (!cim.isDynamic && cim.count > 0)
                 cim.hasBeenPlaced = true;
-
             if (cim.isDynamic)
                 cim.count = 0;
         }
@@ -28,7 +28,6 @@ export default class CoolThree {
         }
         if (!(obj as CoolMesh).cim)
             return;
-
         const cim = (obj as CoolMesh).cim;
         if (!cim.isDynamic && cim.hasBeenPlaced)
             return;
@@ -36,9 +35,8 @@ export default class CoolThree {
         obj.updateMatrixWorld();
         cim.setMatrixAt(cim.count, obj.matrixWorld);
         cim.setColorAt(cim.count, (obj as CoolMesh).color);
-
-        cim.instanceColor!.needsUpdate = true;
         cim.instanceMatrix!.needsUpdate = true;
+        cim.instanceColor!.needsUpdate = true;
         cim.count++;
     }
 }
