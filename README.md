@@ -43,9 +43,13 @@ npm i coolthree
 
 ### CoolThree
 `new CoolThree()`
+
 `add(scene: Object3D, name: string, geo: BufferGeometry, mat: Material, amount = 1000, isDynamic = true): void`
+
 `remove(name: string): void`
+
 `get(name: string): CoolInstancedMesh`
+
 `update(scene: Object3D): void`
 
 ### CoolMesh
