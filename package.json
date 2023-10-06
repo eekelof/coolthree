@@ -1,0 +1,35 @@
+{
+    "name": "coolthree",
+    "version": "1.0.0",
+    "description": "DX friendy InstancedMesh for three.js",
+    "type": "module",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/eekelof/coolthree.git"
+    },
+    "keywords": [
+        "javascript",
+        "typescript",
+        "three",
+        "threejs",
+        "instancedmesh"
+    ],
+    "author": "eekelof",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/eekelof/coolthree/issues"
+    },
+    "homepage": "https://github.com/eekelof/coolthree#readme",
+    "dependencies": {
+        "three": "^0.157.0"
+    },
+    "devDependencies": {
+        "tslib": "^2.6.2",
+        "@types/three": "^0.156.0"
+    }
+}
