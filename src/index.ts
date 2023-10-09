@@ -2,7 +2,6 @@ import { BufferGeometry, Color, InstancedMesh, Material, Object3D } from "three"
 
 export class CoolThree {
     cims = new Map<string, CoolInstancedMesh>();
-
     add(scene: Object3D, name: string, geo: BufferGeometry, mat: Material, amount = 1000, isDynamic = true) {
         const cim = new CoolInstancedMesh(geo, mat, amount, isDynamic);
         this.cims.set(name, cim);

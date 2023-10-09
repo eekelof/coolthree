@@ -1,6 +1,6 @@
 {
     "name": "coolthree",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "DX friendy InstancedMesh for three.js",
     "type": "module",
     "main": "dist/index.js",
@@ -25,11 +25,12 @@
         "url": "https://github.com/eekelof/coolthree/issues"
     },
     "homepage": "https://github.com/eekelof/coolthree#readme",
-    "dependencies": {
-        "three": "^0.157.0"
+    "peerDependencies": {
+        "three": "0.x.x"
     },
     "devDependencies": {
         "tslib": "^2.6.2",
-        "@types/three": "^0.156.0"
+        "@types/three": "^0.156.0",
+        "three": "^0.157.0"
     }
 }
