@@ -31,6 +31,7 @@ export class CoolThree {
     static #traverseScene(obj: Object3D) {
         if (!obj.visible)
             return;
+        obj.updateMatrixWorld();
         for (const c of obj.children) {
             this.#traverseScene(c);
         }
@@ -40,7 +41,6 @@ export class CoolThree {
         if (!cim.isDynamic && cim.hasBeenPlaced)
             return;
 
-        obj.updateMatrixWorld();
         cim.setMatrixAt(cim.count, obj.matrixWorld);
         cim.setColorAt(cim.count, (obj as CoolMesh).color);
         cim.instanceMatrix!.needsUpdate = true;
