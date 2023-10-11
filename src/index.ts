@@ -50,9 +50,9 @@ export class CoolThree {
 }
 
 export class CoolMesh extends Object3D {
-    cim: CoolInstancedMesh | null;
+    cim: CoolInstancedMesh | undefined;
     color: Color;
-    constructor(cim: CoolInstancedMesh | null, color: Color) {
+    constructor(cim?: CoolInstancedMesh, color = new Color(0xffffff)) {
         super();
         this.cim = cim;
         this.color = color;
