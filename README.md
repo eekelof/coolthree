@@ -14,6 +14,8 @@ npm i coolthree
 ## Usage
 ```javascript
     import { CoolMesh, CoolThree } from 'coolthree';
+    
+    const ct = new CoolThree();
 
     const geo = new THREE.BoxGeometry(1, 1, 1);
     const mat = new THREE.MeshPhongMaterial();
@@ -30,7 +32,7 @@ npm i coolthree
         }
     }
 
-    // update
+    // in update()
     for (const p of particles) {
         p.mesh.position.x += delta * Math.cos(p.a);
         p.mesh.position.y += delta * Math.sin(p.a);
@@ -38,6 +40,8 @@ npm i coolthree
     }
     ct.update(scene);
 ```
+
+#### [Complete usage example](https://codesandbox.io/s/coolthree-example-8yjzm6)
 
 ## Docs
 

@@ -33,16 +33,16 @@ export class CoolThree {
             return;
         obj.updateMatrixWorld();
         for (const c of obj.children) {
-            this.#traverseScene(c);
+            CoolThree.#traverseScene(c);
         }
-        if (!(obj as CoolMesh).cim)
+        if (!obj.cim)
             return;
-        const cim = (obj as CoolMesh).cim;
+        const cim = obj.cim;
         if (!cim.isDynamic && cim.hasBeenPlaced)
             return;
 
         cim.setMatrixAt(cim.count, obj.matrixWorld);
-        cim.setColorAt(cim.count, (obj as CoolMesh).color);
+        cim.setColorAt(cim.count, obj.color);
         cim.instanceMatrix!.needsUpdate = true;
         cim.instanceColor!.needsUpdate = true;
         cim.count++;
@@ -50,9 +50,9 @@ export class CoolThree {
 }
 
 export class CoolMesh extends Object3D {
-    cim: CoolInstancedMesh;
+    cim: CoolInstancedMesh | null;
     color: Color;
-    constructor(cim: CoolInstancedMesh, color: Color) {
+    constructor(cim: CoolInstancedMesh | null, color: Color) {
         super();
         this.cim = cim;
         this.color = color;
