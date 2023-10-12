@@ -1,6 +1,6 @@
 {
     "name": "coolthree",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "description": "DX friendy InstancedMesh for three.js",
     "type": "module",
     "main": "dist/index.js",
