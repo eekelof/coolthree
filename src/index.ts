@@ -11,10 +11,8 @@ export class CoolThree {
         const cim = this.cims.get(name);
         if (!cim)
             return;
-        cim.parent?.remove(cim);
         this.cims.delete(name);
-        cim.geometry?.dispose();
-        (cim.material as THREE.Material)?.dispose();
+        cim.parent?.remove(cim);
     }
     get(name: string) {
         return this.cims.get(name);
@@ -37,15 +35,14 @@ export class CoolThree {
         }
         if (!obj.cim)
             return;
-        const cim = obj.cim;
-        if (!cim.isDynamic && cim.hasBeenPlaced)
+        if (!obj.cim.isDynamic && obj.cim.hasBeenPlaced)
             return;
 
-        cim.setMatrixAt(cim.count, obj.matrixWorld);
-        cim.setColorAt(cim.count, obj.color);
-        cim.instanceMatrix!.needsUpdate = true;
-        cim.instanceColor!.needsUpdate = true;
-        cim.count++;
+        obj.cim.setMatrixAt(obj.cim.count, obj.matrixWorld);
+        obj.cim.setColorAt(obj.cim.count, obj.color);
+        obj.cim.instanceMatrix!.needsUpdate = true;
+        obj.cim.instanceColor!.needsUpdate = true;
+        obj.cim.count++;
     }
 }
 
