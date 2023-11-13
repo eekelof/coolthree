@@ -4,7 +4,11 @@
 [![npm](https://img.shields.io/npm/dm/coolthree)](https://www.npmjs.com/package/coolthree)
 [![GitHub](https://img.shields.io/github/license/jgtools/textmesh)](https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt)
 
-DX friendy InstancedMesh for three.js
+DX friendy dynamic InstancedMesh for three.js
+
+## Features
+- Abstraction for dynamic InstancedMesh
+- Use CoolMesh as regular Mesh (both extend Object3D)
 
 ## Installation
 ```bash
@@ -48,16 +52,16 @@ npm i coolthree
 ### CoolThree
 `new CoolThree()`
 
-`add(scene: Object3D, name: string, geo: BufferGeometry, mat: Material, amount = 1000, isDynamic = true): void`
+`add(scene: Object3D, name: string, geo: BufferGeometry, mat: Material, amount = 1000): void`
 
 `remove(name: string): void`
 
-`get(name: string): CoolInstancedMesh`
+`get(name: string): InstancedMesh`
 
 `update(scene: Object3D): void`
 
 ### CoolMesh
-`new CoolMesh(cim: CoolInstancedMesh, color: Color)`
+`new CoolMesh(cim: InstancedMesh, color: Color)`
 
 ## License
 

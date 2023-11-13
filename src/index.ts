@@ -1,9 +1,9 @@
 import { BufferGeometry, Color, InstancedMesh, Material, Object3D } from "three";
 
 export class CoolThree {
-    cims = new Map<string, CoolInstancedMesh>();
-    add(scene: Object3D, name: string, geo: BufferGeometry, mat: Material, amount = 1000, isDynamic = true) {
-        const cim = new CoolInstancedMesh(geo, mat, amount, isDynamic);
+    cims = new Map<string, InstancedMesh>();
+    add(scene: Object3D, name: string, geo: BufferGeometry, mat: Material, amount = 1000) {
+        const cim = new InstancedMesh(geo, mat, amount);
         this.cims.set(name, cim);
         scene.add(cim);
     }
@@ -18,11 +18,8 @@ export class CoolThree {
         return this.cims.get(name);
     }
     update(scene: Object3D) {
-        for (const cim of this.cims.values()) {
-            if (!cim.isDynamic && cim.count > 0)
-                cim.hasBeenPlaced = true;
-            if (cim.isDynamic)
-                cim.count = 0;
+        for (const [_k, cim] of this.cims) {
+            cim.count = 0;
         }
         CoolThree.#traverseScene(scene);
     }
@@ -35,8 +32,6 @@ export class CoolThree {
         }
         if (!obj.cim)
             return;
-        if (!obj.cim.isDynamic && obj.cim.hasBeenPlaced)
-            return;
 
         obj.cim.setMatrixAt(obj.cim.count, obj.matrixWorld);
         obj.cim.setColorAt(obj.cim.count, obj.color);
@@ -47,21 +42,11 @@ export class CoolThree {
 }
 
 export class CoolMesh extends Object3D {
-    cim: CoolInstancedMesh | undefined;
+    cim: InstancedMesh | undefined;
     color: Color;
-    constructor(cim?: CoolInstancedMesh, color = new Color(0xffffff)) {
+    constructor(cim?: InstancedMesh, color = new Color(0xffffff)) {
         super();
         this.cim = cim;
         this.color = color;
-    }
-}
-
-export class CoolInstancedMesh extends InstancedMesh {
-    isDynamic = true;
-    hasBeenPlaced = false;
-    constructor(geo: BufferGeometry, mat: Material, amount = 1000, isDynamic = true) {
-        super(geo, mat, amount);
-        this.isDynamic = isDynamic;
-        this.count = 0;
     }
 }
