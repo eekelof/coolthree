@@ -1,25 +1,25 @@
 import { BufferGeometry, Color, InstancedMesh, Material, Object3D } from "three";
 
 export class CoolThree {
-    cims = new Map<string, InstancedMesh>();
+    ims = new Map<string, InstancedMesh>();
     add(scene: Object3D, name: string, geo: BufferGeometry, mat: Material, amount = 1000) {
-        const cim = new InstancedMesh(geo, mat, amount);
-        this.cims.set(name, cim);
-        scene.add(cim);
+        const im = new InstancedMesh(geo, mat, amount);
+        this.ims.set(name, im);
+        scene.add(im);
     }
     remove(name: string) {
-        const cim = this.cims.get(name);
-        if (!cim)
+        const im = this.ims.get(name);
+        if (!im)
             return;
-        this.cims.delete(name);
-        cim.parent?.remove(cim);
+        this.ims.delete(name);
+        im.parent?.remove(im);
     }
     get(name: string) {
-        return this.cims.get(name);
+        return this.ims.get(name);
     }
     update(scene: Object3D) {
-        for (const [_k, cim] of this.cims) {
-            cim.count = 0;
+        for (const [_k, im] of this.ims) {
+            im.count = 0;
         }
         CoolThree.#traverseScene(scene);
     }
@@ -30,23 +30,23 @@ export class CoolThree {
         for (const c of obj.children) {
             CoolThree.#traverseScene(c);
         }
-        if (!obj.cim)
+        if (!obj.im)
             return;
 
-        obj.cim.setMatrixAt(obj.cim.count, obj.matrixWorld);
-        obj.cim.setColorAt(obj.cim.count, obj.color);
-        obj.cim.instanceMatrix!.needsUpdate = true;
-        obj.cim.instanceColor!.needsUpdate = true;
-        obj.cim.count++;
+        obj.im.setMatrixAt(obj.im.count, obj.matrixWorld);
+        obj.im.setColorAt(obj.im.count, obj.color);
+        obj.im.instanceMatrix!.needsUpdate = true;
+        obj.im.instanceColor!.needsUpdate = true;
+        obj.im.count++;
     }
 }
 
 export class CoolMesh extends Object3D {
-    cim: InstancedMesh | undefined;
+    im: InstancedMesh | undefined;
     color: Color;
-    constructor(cim?: InstancedMesh, color = new Color(0xffffff)) {
+    constructor(im?: InstancedMesh, color = new Color(0xffffff)) {
         super();
-        this.cim = cim;
+        this.im = im;
         this.color = color;
     }
 }

@@ -61,7 +61,7 @@ npm i coolthree
 `update(scene: Object3D): void`
 
 ### CoolMesh
-`new CoolMesh(cim: InstancedMesh, color: Color)`
+`new CoolMesh(im: InstancedMesh, color: Color)`
 
 ## License
 
