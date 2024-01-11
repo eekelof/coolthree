@@ -4,11 +4,12 @@
 [![npm](https://img.shields.io/npm/dm/coolthree)](https://www.npmjs.com/package/coolthree)
 [![GitHub](https://img.shields.io/github/license/jgtools/textmesh)](https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt)
 
-DX friendy dynamic InstancedMesh for three.js
+DX friendly dynamic InstancedMesh for three.js
 
 ## Features
 - Abstraction for dynamic InstancedMesh
-- Use CoolMesh as regular Mesh (both extend Object3D)
+- Use CoolMesh as regular Mesh in three.js (both extend Object3D)
+- Adjusts the amount of instances automatically
 
 ## Installation
 ```bash

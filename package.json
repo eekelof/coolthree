@@ -1,7 +1,7 @@
 {
     "name": "coolthree",
-    "version": "2.0.1",
-    "description": "DX friendy dynamic InstancedMesh for three.js",
+    "version": "2.0.2",
+    "description": "DX friendly dynamic InstancedMesh for three.js",
     "type": "module",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
