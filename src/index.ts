@@ -26,7 +26,10 @@ export class CoolThree {
     static #traverseScene(obj: Object3D) {
         if (!obj.visible)
             return;
+        obj.updateMatrix();
+        obj.matrixAutoUpdate = false;
         obj.updateMatrixWorld();
+        obj.matrixWorldAutoUpdate = false;
         for (const c of obj.children) {
             CoolThree.#traverseScene(c);
         }
