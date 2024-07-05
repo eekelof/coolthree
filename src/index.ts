@@ -14,40 +14,36 @@ export class CoolThree {
         this.ims.delete(name);
         im.parent?.remove(im);
     }
-    get(name: string) {
+    get(name: string): InstancedMesh | undefined {
         return this.ims.get(name);
     }
     update(scene: Object3D) {
         for (const [_k, im] of this.ims) {
             im.count = 0;
         }
-        CoolThree.#traverseScene(scene);
-    }
-    static #traverseScene(obj: Object3D) {
-        if (!obj.visible)
-            return;
-        obj.updateMatrix();
-        obj.matrixAutoUpdate = false;
-        obj.updateMatrixWorld();
-        obj.matrixWorldAutoUpdate = false;
-        for (const c of obj.children) {
-            CoolThree.#traverseScene(c);
-        }
-        if (!obj.im)
-            return;
+        scene.traverseVisible(obj => {
+            obj.matrixAutoUpdate = true;
+            obj.updateMatrix();
+            obj.matrixAutoUpdate = false;
+            obj.matrixWorldAutoUpdate = true;
+            obj.updateWorldMatrix(false, false);
+            obj.matrixWorldAutoUpdate = false;
 
-        obj.im.setMatrixAt(obj.im.count, obj.matrixWorld);
-        obj.im.setColorAt(obj.im.count, obj.color);
-        obj.im.instanceMatrix!.needsUpdate = true;
-        obj.im.instanceColor!.needsUpdate = true;
-        obj.im.count++;
+            if (!(obj as CoolMesh).im)
+                return;
+            (obj as CoolMesh).im.setMatrixAt((obj as CoolMesh).im.count, obj.matrixWorld);
+            (obj as CoolMesh).im.setColorAt((obj as CoolMesh).im.count, (obj as CoolMesh).color);
+            (obj as CoolMesh).im.instanceMatrix!.needsUpdate = true;
+            (obj as CoolMesh).im.instanceColor!.needsUpdate = true;
+            (obj as CoolMesh).im.count++;
+        });
     }
 }
 
 export class CoolMesh extends Object3D {
-    im: InstancedMesh | undefined;
+    im: InstancedMesh;
     color: Color;
-    constructor(im?: InstancedMesh, color = new Color(0xffffff)) {
+    constructor(im: InstancedMesh, color = new Color(0xffffff)) {
         super();
         this.im = im;
         this.color = color;
