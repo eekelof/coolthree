@@ -1,9 +1,11 @@
-import { BufferGeometry, Color, InstancedMesh, Material, Object3D } from "three";
+import { BufferGeometry, Color, InstancedMesh, Material, Object3D, StreamDrawUsage } from "three";
 
 export class CoolThree {
     ims = new Map<string, InstancedMesh>();
     add(scene: Object3D, name: string, geo: BufferGeometry, mat: Material, amount = 1000) {
         const im = new InstancedMesh(geo, mat, amount);
+        im.instanceMatrix.setUsage(StreamDrawUsage);
+        im.instanceColor?.setUsage(StreamDrawUsage);
         this.ims.set(name, im);
         scene.add(im);
     }
@@ -14,7 +16,7 @@ export class CoolThree {
         this.ims.delete(name);
         im.parent?.remove(im);
     }
-    get(name: string): InstancedMesh | undefined {
+    get(name: string): InstancedMesh {
         return this.ims.get(name);
     }
     update(scene: Object3D) {
@@ -29,14 +31,20 @@ export class CoolThree {
             obj.updateWorldMatrix(false, false);
             obj.matrixWorldAutoUpdate = false;
 
-            if (!(obj as CoolMesh).im)
+            if (!obj.im)
                 return;
-            (obj as CoolMesh).im.setMatrixAt((obj as CoolMesh).im.count, obj.matrixWorld);
-            (obj as CoolMesh).im.setColorAt((obj as CoolMesh).im.count, (obj as CoolMesh).color);
-            (obj as CoolMesh).im.instanceMatrix!.needsUpdate = true;
-            (obj as CoolMesh).im.instanceColor!.needsUpdate = true;
-            (obj as CoolMesh).im.count++;
+            obj.im.setMatrixAt(obj.im.count, obj.matrixWorld);
+            obj.im.setColorAt(obj.im.count, obj.color);
+            obj.im.count++;
         });
+        for (const [_k, im] of this.ims) {
+            if (im.count == 0)
+                continue;
+            im.instanceMatrix.needsUpdate = true;
+            im.instanceColor!.needsUpdate = true;
+            im.instanceMatrix.addUpdateRange(0, im.count * 16);
+            im.instanceColor?.addUpdateRange(0, im.count * 3);
+        }
     }
 }
 
