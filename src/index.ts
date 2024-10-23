@@ -4,6 +4,7 @@ export class CoolThree {
     ims = new Map<string, InstancedMesh>();
     add(scene: Object3D, name: string, geo: BufferGeometry, mat: Material, amount = 1000) {
         const im = new InstancedMesh(geo, mat, amount);
+        im.userData.amount = amount;
         im.instanceMatrix.setUsage(StreamDrawUsage);
         im.instanceColor?.setUsage(StreamDrawUsage);
         this.ims.set(name, im);
@@ -32,6 +33,8 @@ export class CoolThree {
             obj.matrixWorldAutoUpdate = false;
 
             if (!obj.im)
+                return;
+            if (obj.im.count >= obj.im.userData.amount)
                 return;
             obj.im.setMatrixAt(obj.im.count, obj.matrixWorld);
             obj.im.setColorAt(obj.im.count, obj.color);

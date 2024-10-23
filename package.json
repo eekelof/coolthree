@@ -1,6 +1,6 @@
 {
     "name": "coolthree",
-    "version": "2.1.1",
+    "version": "2.1.2",
     "description": "DX friendly dynamic InstancedMesh for three.js",
     "type": "module",
     "main": "dist/index.js",
@@ -29,8 +29,7 @@
         "three": "0.x.x"
     },
     "devDependencies": {
-        "tslib": "^2.6.2",
-        "@types/three": "^0.166.0",
-        "three": "^0.166.0"
+        "@types/three": "^0.169.0",
+        "three": "^0.169.0"
     }
 }
